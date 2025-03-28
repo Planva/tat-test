@@ -1,18 +1,14 @@
-name = "tat-test"
+name = "tat-test-api"
+main = "functions/api/[[route]].ts"
 compatibility_date = "2024-03-26"
-
-[dev]
-port = 8787
 
 [[kv_namespaces]]
 binding = "TAT_IMAGES"
 id = "e66fda55f20f4360a651ac54dd95ecaf"
-preview_id = "<your_preview_namespace_id>"
 
+[[kv_namespaces]]
+binding = "TAT_RESPONSES"
+id = "9233253c038741b09946eacf523af16d"
 
 [vars]
 HUGGINGFACE_API_KEY = ""
-
-[build]
-command = "npm run build"
-dist = "dist"
