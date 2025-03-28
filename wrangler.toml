@@ -1,0 +1,16 @@
+name = "tat-test"
+compatibility_date = "2024-03-26"
+
+[dev]
+port = 8787
+
+[[kv_namespaces]]
+binding = "TAT_IMAGES"
+preview_id = "preview-images"
+
+[vars]
+HUGGINGFACE_API_KEY = ""
+
+[build]
+command = "npm run build"
+dist = "dist"
