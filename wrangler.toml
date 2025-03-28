@@ -6,7 +6,9 @@ port = 8787
 
 [[kv_namespaces]]
 binding = "TAT_IMAGES"
-preview_id = "preview-images"
+id = "e66fda55f20f4360a651ac54dd95ecaf"
+preview_id = "<your_preview_namespace_id>"
+
 
 [vars]
 HUGGINGFACE_API_KEY = ""

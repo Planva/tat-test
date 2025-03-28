@@ -40,13 +40,24 @@ async function getAIAnalysis(text: string, apiKey: string) {
       }),
     });
 
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error('Hugging Face API Error:', response.status, errorText);
+      throw new Error(`Hugging Face API Error: ${response.status} - ${errorText}`);
+    }
+
     const result = await response.json();
+    if (result.error) {
+      console.error('Hugging Face API Result Error:', result.error);
+      throw new Error(`Hugging Face API Result Error: ${result.error}`);
+    }
     return result[0]?.generated_text || 'Unable to generate AI analysis.';
   } catch (error) {
     console.error('Error getting AI analysis:', error);
     return 'Unable to generate AI analysis at this time.';
   }
 }
+
 
 export default {
   async fetch(request: Request, env: Env, ctx: ExecutionContext) {
@@ -61,7 +72,13 @@ export default {
       switch (path) {
         case 'images':
           if (request.method === 'GET') {
-            return new Response(JSON.stringify(DEFAULT_IMAGES), {
+            let images = await env.TAT_IMAGES.get('image_list', 'json');
+            if (!images) {
+              // If no images exist in KV, set the default images
+              await env.TAT_IMAGES.put('image_list', JSON.stringify(DEFAULT_IMAGES));
+              images = DEFAULT_IMAGES;
+            }
+            return new Response(JSON.stringify(images), {
               headers: {
                 'Content-Type': 'application/json',
                 ...corsHeaders,
@@ -69,7 +86,6 @@ export default {
             });
           }
           break;
-
         case 'analyze':
           if (request.method === 'POST') {
             const { story } = await request.json();
