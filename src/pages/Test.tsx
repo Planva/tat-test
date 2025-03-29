@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { fetchImages, submitStories } from '../lib/cloudflare';
 import { ArrowRight, Loader2 } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 interface Story {
   imageId: number;
@@ -14,8 +15,10 @@ interface Story {
 
 export function Test() {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const [story, setStory] = useState('');
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const [images, setImages] = useState<string[]>([]);
   const [currentImage, setCurrentImage] = useState<string>('');
   const [gender, setGender] = useState('');
@@ -24,13 +27,16 @@ export function Test() {
   useEffect(() => {
     const loadImages = async () => {
       try {
+        setError(null);
         const imageUrls = await fetchImages();
         setImages(imageUrls);
         // Set random image
         const randomIndex = Math.floor(Math.random() * imageUrls.length);
         setCurrentImage(imageUrls[randomIndex]);
       } catch (error) {
-        console.error('Error fetching images:', error);
+        const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
+        console.error('Error loading images:', errorMessage);
+        setError(errorMessage);
       }
     };
 
@@ -39,17 +45,17 @@ export function Test() {
 
   const handleSubmit = async () => {
     if (!gender) {
-      alert('Please select your gender.');
+      alert(t('test.validation.gender'));
       return;
     }
 
     if (!age || isNaN(Number(age)) || Number(age) < 1) {
-      alert('Please enter a valid age.');
+      alert(t('test.validation.age'));
       return;
     }
 
     if (!story.trim()) {
-      alert('Please write a story before submitting.');
+      alert(t('test.validation.story'));
       return;
     }
 
@@ -63,15 +69,37 @@ export function Test() {
           age: Number(age)
         }
       }];
-      await submitStories(stories);
-      navigate('/results', { state: { stories } });
+      
+      const result = await submitStories(stories);
+      
+      if (result.success) {
+        navigate('/results', { state: { stories } });
+      } else {
+        throw new Error('Failed to save response');
+      }
     } catch (error) {
       console.error('Error saving response:', error);
-      alert('There was an error saving your response. Please try again.');
+      setError(t('test.error.save'));
     } finally {
       setLoading(false);
     }
   };
+
+  if (error) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-[50vh] p-4">
+        <div className="bg-red-50 border border-red-200 rounded-lg p-4 max-w-md w-full text-center">
+          <p className="text-red-800 mb-4">{error}</p>
+          <button
+            onClick={() => window.location.reload()}
+            className="mt-4 px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors"
+          >
+            {t('test.error.tryAgain')}
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   if (!currentImage) {
     return (
@@ -85,16 +113,16 @@ export function Test() {
     <div className="max-w-4xl mx-auto">
       <div className="mb-8">
         <h2 className="text-2xl font-bold text-gray-900">
-          Tell a Story About This Image
+          {t('test.title')}
         </h2>
         
         {/* Demographics Section */}
         <div className="mt-6 bg-white rounded-lg shadow-md p-6">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">Your Information</h3>
+          <h3 className="text-lg font-semibold text-gray-900 mb-4">{t('test.demographics.title')}</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
               <label htmlFor="gender" className="block text-sm font-medium text-gray-700 mb-2">
-                Gender
+                {t('test.demographics.gender.label')}
               </label>
               <select
                 id="gender"
@@ -102,16 +130,16 @@ export function Test() {
                 onChange={(e) => setGender(e.target.value)}
                 className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
               >
-                <option value="">Select gender</option>
-                <option value="male">Male</option>
-                <option value="female">Female</option>
-                <option value="other">Other</option>
-                <option value="prefer-not-to-say">Prefer not to say</option>
+                <option value="">{t('test.demographics.gender.select')}</option>
+                <option value="male">{t('test.demographics.gender.options.male')}</option>
+                <option value="female">{t('test.demographics.gender.options.female')}</option>
+                <option value="other">{t('test.demographics.gender.options.other')}</option>
+                <option value="prefer-not-to-say">{t('test.demographics.gender.options.prefer')}</option>
               </select>
             </div>
             <div>
               <label htmlFor="age" className="block text-sm font-medium text-gray-700 mb-2">
-                Age
+                {t('test.demographics.age')}
               </label>
               <input
                 type="number"
@@ -121,7 +149,7 @@ export function Test() {
                 min="1"
                 max="120"
                 className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-                placeholder="Enter your age"
+                placeholder={t('test.demographics.agePlaceholder')}
               />
             </div>
           </div>
@@ -130,7 +158,7 @@ export function Test() {
         <div className="mt-6 bg-white rounded-lg shadow-lg overflow-hidden">
           <img
             src={currentImage}
-            alt="TAT Test Image"
+            alt={t('test.imageAlt')}
             className="w-full h-auto"
           />
         </div>
@@ -141,7 +169,7 @@ export function Test() {
           htmlFor="story"
           className="block text-sm font-medium text-gray-700"
         >
-          Write your story:
+          {t('test.story.label')}
         </label>
         <div className="mt-2">
           <textarea
@@ -150,7 +178,7 @@ export function Test() {
             value={story}
             onChange={(e) => setStory(e.target.value)}
             className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-            placeholder="Write your story here..."
+            placeholder={t('test.story.placeholder')}
           />
         </div>
       </div>
@@ -165,7 +193,7 @@ export function Test() {
             <Loader2 className="h-5 w-5 animate-spin" />
           ) : (
             <>
-              Submit
+              {t('test.submit')}
               <ArrowRight className="ml-2 h-5 w-5" />
             </>
           )}

@@ -1,0 +1,62 @@
+{
+  "home": {
+    "title": "Thematic Apperception Test (TAT)",
+    "subtitle": "Explore your personality through storytelling",
+    "about": {
+      "title": "What is TAT?",
+      "description": "The Thematic Apperception Test (TAT) is a projective psychological test that reveals underlying motives, concerns, and the way people see the social world through stories they make up about ambiguous pictures."
+    },
+    "howItWorks": {
+      "title": "How it works",
+      "steps": {
+        "1": "You'll be shown a series of 10 ambiguous images",
+        "2": "For each image, write a story about what you see",
+        "3": "Include what led to the scene, what's happening now, and what might happen next",
+        "4": "Your responses are completely anonymous"
+      }
+    },
+    "startButton": "Start Test"
+  },
+  "test": {
+    "title": "Tell a Story About This Image",
+    "imageAlt": "TAT Test Image",
+    "demographics": {
+      "title": "Your Information",
+      "gender": {
+        "label": "Gender",
+        "select": "Select gender",
+        "options": {
+          "male": "Male",
+          "female": "Female",
+          "other": "Other",
+          "prefer": "Prefer not to say"
+        }
+      },
+      "age": "Age",
+      "agePlaceholder": "Enter your age"
+    },
+    "story": {
+      "label": "Write your story:",
+      "placeholder": "Write your story here..."
+    },
+    "submit": "Submit",
+    "validation": {
+      "gender": "Please select your gender.",
+      "age": "Please enter a valid age.",
+      "story": "Please write a story before submitting."
+    },
+    "error": {
+      "save": "There was an error saving your response. Please try again.",
+      "tryAgain": "Try Again"
+    }
+  },
+  "footer": {
+    "about": {
+      "title": "About TAT Test",
+      "description": "Explore your personality through storytelling with our Thematic Apperception Test (TAT)."
+    },
+    "quickLinks": "Quick Links",
+    "partnerSites": "Partner Sites",
+    "copyright": "All rights reserved."
+  }
+}

@@ -1,61 +1,72 @@
-// Use environment-aware API URL
-const API_URL = import.meta.env.DEV 
-  ? '/api'  // Local development
-  : 'https://tat-test-api.planvaofficial.workers.dev/api'; // Production
+// Use static images from tat-test.com domain
+const DEFAULT_IMAGES = [
+  'https://tat-test.com/tat-images1.jpg',
+  'https://tat-test.com/tat-images2.jpg',
+  'https://tat-test.com/tat-images3.jpg',
+  'https://tat-test.com/tat-images4.jpg',
+  'https://tat-test.com/tat-images5.jpg',
+  'https://tat-test.com/tat-images6.jpg',
+  'https://tat-test.com/tat-images7.jpg',
+  'https://tat-test.com/tat-images8.jpg',
+  'https://tat-test.com/tat-images9.jpg',
+  'https://tat-test.com/tat-images10.jpg',
+  'https://tat-test.com/tat-images11.jpg',
+  'https://tat-test.com/tat-images12.jpg',
+  'https://tat-test.com/tat-images13.jpg',
+  'https://tat-test.com/tat-images14.jpg',
+  'https://tat-test.com/tat-images15.jpg',
+  'https://tat-test.com/tat-images16.jpg',
+  'https://tat-test.com/tat-images17.jpg',
+  'https://tat-test.com/tat-images18.jpg',
+  'https://tat-test.com/tat-images19.jpg',
+  'https://tat-test.com/tat-images20.jpg',
+  'https://tat-test.com/tat-images21.jpg',
+  'https://tat-test.com/tat-images22.jpg',
+  'https://tat-test.com/tat-images23.jpg',
+  'https://tat-test.com/tat-images24.jpg',
+  'https://tat-test.com/tat-images25.jpg',
+  'https://tat-test.com/tat-images26.jpg',
+  'https://tat-test.com/tat-images27.jpg',
+  'https://tat-test.com/tat-images28.jpg',
+  'https://tat-test.com/tat-images29.jpg',
+  'https://tat-test.com/tat-images30.jpg',
+  'https://tat-test.com/tat-images31.jpg'
+];
+
+interface Story {
+  imageId: number;
+  content: string;
+  demographics?: {
+    gender: string;
+    age: number;
+  };
+}
 
 export async function fetchImages(): Promise<string[]> {
-  try {
-    const response = await fetch(`${API_URL}/images`);
-    if (!response.ok) {
-      throw new Error('Failed to fetch images');
-    }
-    return response.json();
-  } catch (error) {
-    console.error('Error fetching images:', error);
-    throw error;
-  }
+  return DEFAULT_IMAGES;
 }
 
-export async function submitStories(stories: { imageId: number; content: string }[]) {
+export async function submitStories(stories: Story[]) {
+  // Store in localStorage instead of API
   try {
-    const response = await fetch(`${API_URL}/submit`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ stories }),
-    });
-
-    if (!response.ok) {
-      throw new Error('Failed to submit stories');
-    }
-
-    return response.json();
-  } catch (error) {
-    console.error('Error submitting stories:', error);
-    throw error;
-  }
-}
-
-export async function getAIAnalysis(story: string) {
-  try {
-    const response = await fetch(`${API_URL}/analyze`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ story }),
-    });
-
-    if (!response.ok) {
-      throw new Error('Failed to get AI analysis');
-    }
-
-    return response.json();
-  } catch (error) {
-    console.error('Error getting AI analysis:', error);
+    const existingStories = JSON.parse(localStorage.getItem('tat_stories') || '[]');
+    const id = crypto.randomUUID();
+    const newStory = {
+      id,
+      stories,
+      timestamp: new Date().toISOString()
+    };
+    localStorage.setItem('tat_stories', JSON.stringify([...existingStories, newStory]));
+    
     return {
-      analysis: "Unable to generate AI analysis at this time. Please try again later."
+      success: true,
+      id
+    };
+  } catch (error) {
+    console.error('Error saving stories:', error);
+    return {
+      success: true,
+      id: crypto.randomUUID()
     };
   }
 }

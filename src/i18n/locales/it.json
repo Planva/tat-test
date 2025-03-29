@@ -1,0 +1,50 @@
+{
+  "home": {
+    "title": "Test di Appercezione Tematica (TAT)",
+    "subtitle": "Esplora la tua personalità attraverso il racconto",
+    "about": {
+      "title": "Cos'è il TAT?",
+      "description": "Il Test di Appercezione Tematica (TAT) è un test psicologico proiettivo che rivela motivi sottostanti, preoccupazioni e il modo in cui le persone vedono il mondo sociale attraverso le storie che inventano su immagini ambigue."
+    },
+    "howItWorks": {
+      "title": "Come funziona",
+      "steps": {
+        "1": "Ti verranno mostrate 10 immagini ambigue",
+        "2": "Per ogni immagine, scrivi una storia su ciò che vedi",
+        "3": "Includi cosa ha portato alla scena, cosa sta succedendo ora e cosa potrebbe succedere dopo",
+        "4": "Le tue risposte sono completamente anonime"
+      }
+    },
+    "startButton": "Inizia il Test"
+  },
+  "test": {
+    "title": "Racconta una Storia su Questa Immagine",
+    "demographics": {
+      "title": "Le tue Informazioni",
+      "gender": {
+        "label": "Genere",
+        "options": {
+          "male": "Maschio",
+          "female": "Femmina",
+          "other": "Altro",
+          "prefer": "Preferisco non dirlo"
+        }
+      },
+      "age": "Età"
+    },
+    "story": {
+      "label": "Scrivi la tua storia:",
+      "placeholder": "Scrivi qui la tua storia..."
+    },
+    "submit": "Invia"
+  },
+  "footer": {
+    "about": {
+      "title": "Sul Test TAT",
+      "description": "Esplora la tua personalità attraverso il racconto con il nostro Test di Appercezione Tematica (TAT)."
+    },
+    "quickLinks": "Link Rapidi",
+    "partnerSites": "Siti Partner",
+    "copyright": "Tutti i diritti riservati."
+  }
+}

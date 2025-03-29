@@ -1,0 +1,50 @@
+{
+  "home": {
+    "title": "Test d'Aperception Thématique (TAT)",
+    "subtitle": "Explorez votre personnalité à travers la narration",
+    "about": {
+      "title": "Qu'est-ce que le TAT ?",
+      "description": "Le Test d'Aperception Thématique (TAT) est un test psychologique projectif qui révèle les motivations sous-jacentes, les préoccupations et la façon dont les gens voient le monde social à travers les histoires qu'ils inventent sur des images ambiguës."
+    },
+    "howItWorks": {
+      "title": "Comment ça marche",
+      "steps": {
+        "1": "On vous montrera 10 images ambiguës",
+        "2": "Pour chaque image, écrivez une histoire sur ce que vous voyez",
+        "3": "Incluez ce qui a mené à la scène, ce qui se passe maintenant et ce qui pourrait se passer ensuite",
+        "4": "Vos réponses sont totalement anonymes"
+      }
+    },
+    "startButton": "Commencer le Test"
+  },
+  "test": {
+    "title": "Racontez une Histoire sur cette Image",
+    "demographics": {
+      "title": "Vos Informations",
+      "gender": {
+        "label": "Genre",
+        "options": {
+          "male": "Homme",
+          "female": "Femme",
+          "other": "Autre",
+          "prefer": "Je préfère ne pas le dire"
+        }
+      },
+      "age": "Âge"
+    },
+    "story": {
+      "label": "Écrivez votre histoire :",
+      "placeholder": "Écrivez votre histoire ici..."
+    },
+    "submit": "Soumettre"
+  },
+  "footer": {
+    "about": {
+      "title": "À propos du Test TAT",
+      "description": "Explorez votre personnalité à travers la narration avec notre Test d'Aperception Thématique (TAT)."
+    },
+    "quickLinks": "Liens Rapides",
+    "partnerSites": "Sites Partenaires", 
+    "copyright": "Tous droits réservés."
+  }
+}

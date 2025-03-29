@@ -1,0 +1,50 @@
+{
+  "home": {
+    "title": "Tes Apersepsi Tematik (TAT)",
+    "subtitle": "Jelajahi kepribadian Anda melalui bercerita",
+    "about": {
+      "title": "Apa itu TAT?",
+      "description": "Tes Apersepsi Tematik (TAT) adalah tes psikologi projektif yang mengungkapkan motif, kekhawatiran, dan cara orang melihat dunia sosial melalui cerita yang mereka buat tentang gambar-gambar ambigu."
+    },
+    "howItWorks": {
+      "title": "Bagaimana cara kerjanya",
+      "steps": {
+        "1": "Anda akan ditunjukkan 10 gambar ambigu",
+        "2": "Untuk setiap gambar, tulis cerita tentang apa yang Anda lihat",
+        "3": "Sertakan apa yang mengarah ke adegan tersebut, apa yang terjadi sekarang, dan apa yang mungkin terjadi selanjutnya",
+        "4": "Tanggapan Anda sepenuhnya anonim"
+      }
+    },
+    "startButton": "Mulai Tes"
+  },
+  "test": {
+    "title": "Ceritakan Kisah Tentang Gambar Ini",
+    "demographics": {
+      "title": "Informasi Anda",
+      "gender": {
+        "label": "Jenis Kelamin",
+        "options": {
+          "male": "Laki-laki",
+          "female": "Perempuan",
+          "other": "Lainnya",
+          "prefer": "Lebih suka tidak mengatakan"
+        }
+      },
+      "age": "Usia"
+    },
+    "story": {
+      "label": "Tulis cerita Anda:",
+      "placeholder": "Tulis cerita Anda di sini..."
+    },
+    "submit": "Kirim"
+  },
+  "footer": {
+    "about": {
+      "title": "Tentang Tes TAT",
+      "description": "Jelajahi kepribadian Anda melalui bercerita dengan Tes Apersepsi Tematik (TAT) kami."
+    },
+    "quickLinks": "Tautan Cepat",
+    "partnerSites": "Situs Mitra",
+    "copyright": "Hak cipta dilindungi undang-undang."
+  }
+}
