@@ -8,14 +8,41 @@ export function Home() {
   const navigate = useNavigate();
   const { t, i18n } = useTranslation();
 
+  // FAQ Schema Data
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is the Thematic Apperception Test (TAT)?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The TAT is a projective psychological test that reveals personality traits, emotions, and social relationships through storytelling about ambiguous images."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How does the TAT test work?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "You'll be shown a series of images and asked to tell stories about them. These stories are analyzed to understand your personality, motivations, and emotional patterns."
+        }
+      }
+    ]
+  };
+
   return (
     <>
       <Helmet>
         <title>{t('home.title')} | TAT Test Online</title>
         <meta name="description" content={t('home.about.description')} />
-        <link rel="canonical" href={`https://tat-test.com/${i18n.language === 'en' ? '' : i18n.language}`} />
+        <link rel="canonical" href={`https://www.tat-test.com/${i18n.language === 'en' ? '' : i18n.language}`} />
         <meta property="og:title" content={`${t('home.title')} | TAT Test Online`} />
         <meta property="og:description" content={t('home.about.description')} />
+        <script type="application/ld+json">
+          {JSON.stringify(faqSchema)}
+        </script>
       </Helmet>
 
       <div className="max-w-4xl mx-auto">
@@ -66,23 +93,23 @@ export function Home() {
           {/* FAQ Section */}
           <section className="bg-white rounded-lg shadow-sm p-8">
             <h2 className="text-2xl font-bold text-gray-900 mb-6">Frequently Asked Questions</h2>
-            <div className="space-y-6" itemScope itemType="https://schema.org/FAQPage">
-              <div className="border-b border-gray-200 pb-6" itemScope itemType="https://schema.org/Question">
-                <h3 className="text-lg font-semibold text-gray-900 mb-2" itemProp="name">
+            <div className="space-y-6">
+              <div className="border-b border-gray-200 pb-6">
+                <h3 className="text-lg font-semibold text-gray-900 mb-2">
                   What is the Thematic Apperception Test (TAT)?
                 </h3>
-                <div itemScope itemType="https://schema.org/Answer">
-                  <p className="text-gray-600" itemProp="text">
+                <div>
+                  <p className="text-gray-600">
                     The TAT is a projective psychological test that reveals personality traits, emotions, and social relationships through storytelling about ambiguous images.
                   </p>
                 </div>
               </div>
-              <div itemScope itemType="https://schema.org/Question">
-                <h3 className="text-lg font-semibold text-gray-900 mb-2" itemProp="name">
+              <div>
+                <h3 className="text-lg font-semibold text-gray-900 mb-2">
                   How does the TAT test work?
                 </h3>
-                <div itemScope itemType="https://schema.org/Answer">
-                  <p className="text-gray-600" itemProp="text">
+                <div>
+                  <p className="text-gray-600">
                     You'll be shown a series of images and asked to tell stories about them. These stories are analyzed to understand your personality, motivations, and emotional patterns.
                   </p>
                 </div>
@@ -93,7 +120,7 @@ export function Home() {
           {/* Start Test Button */}
           <div className="text-center py-8">
             <button
-              onClick={() => navigate('/test')}
+              onClick={() => navigate('/tat-test-online')}
               className="inline-flex items-center px-8 py-4 border border-transparent text-lg font-medium rounded-lg shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors"
               aria-label={t('home.startButton')}
             >
