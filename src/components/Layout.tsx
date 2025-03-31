@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { Brain } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { LanguageSwitcher } from './LanguageSwitcher';
@@ -9,7 +9,10 @@ interface LayoutProps {
 }
 
 export function Layout({ children }: LayoutProps) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const location = useLocation();
+  const currentLang = i18n.language;
+  const langPrefix = currentLang === 'en' ? '' : `/${currentLang}`;
   
   const partnerLinks = [
     {
@@ -35,7 +38,7 @@ export function Layout({ children }: LayoutProps) {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16">
             <div className="flex items-center">
-              <Link to="/" className="flex items-center">
+              <Link to={langPrefix || '/'} className="flex items-center">
                 <Brain className="h-8 w-8 text-indigo-600" />
                 <span className="ml-2 text-xl font-bold text-gray-900">TAT Test</span>
               </Link>
@@ -43,7 +46,7 @@ export function Layout({ children }: LayoutProps) {
                 {mainLinks.map((link) => (
                   <Link
                     key={link.path}
-                    to={link.path}
+                    to={`${langPrefix}${link.path}`}
                     className="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium"
                   >
                     {link.label}
@@ -81,7 +84,7 @@ export function Layout({ children }: LayoutProps) {
               <ul className="space-y-2">
                 {mainLinks.map((link) => (
                   <li key={link.path}>
-                    <Link to={link.path} className="text-base text-gray-500 hover:text-gray-900">
+                    <Link to={`${langPrefix}${link.path}`} className="text-base text-gray-500 hover:text-gray-900">
                       {link.label}
                     </Link>
                   </li>
@@ -95,7 +98,7 @@ export function Layout({ children }: LayoutProps) {
               </h3>
               <ul className="space-y-2">
                 <li>
-                  <Link to="/tat-test-privacy" className="text-base text-gray-500 hover:text-gray-900">
+                  <Link to={`${langPrefix}/tat-test-privacy`} className="text-base text-gray-500 hover:text-gray-900">
                     Privacy Policy
                   </Link>
                 </li>
