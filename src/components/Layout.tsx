@@ -23,10 +23,10 @@ export function Layout({ children }: LayoutProps) {
   ];
 
   const mainLinks = [
-    { path: '/about', label: 'About TAT' },
-    { path: '/cards', label: 'TAT Cards' },
-    { path: '/research', label: 'Research' },
-    { path: '/test', label: 'Take Test' }
+    { path: '/tat-test-about', label: 'About TAT' },
+    { path: '/tat-test-cards', label: 'TAT Cards' },
+    { path: '/tat-test-research', label: 'Research' },
+    { path: '/tat-test-online', label: 'Take Test' }
   ];
 
   return (
@@ -95,7 +95,7 @@ export function Layout({ children }: LayoutProps) {
               </h3>
               <ul className="space-y-2">
                 <li>
-                  <Link to="/privacy" className="text-base text-gray-500 hover:text-gray-900">
+                  <Link to="/tat-test-privacy" className="text-base text-gray-500 hover:text-gray-900">
                     Privacy Policy
                   </Link>
                 </li>
@@ -130,7 +130,7 @@ export function Layout({ children }: LayoutProps) {
 
           <div className="mt-8 border-t border-gray-200 pt-8">
             <p className="text-center text-sm text-gray-500">
-              © {new Date().getFullYear()} <a href="https://tat-test.com" className="hover:text-gray-900">TAT Test</a>. {t('footer.copyright')}
+              © {new Date().getFullYear()} <a href="https://www.tat-test.com" className="hover:text-gray-900">TAT Test</a>. {t('footer.copyright')}
             </p>
           </div>
         </div>

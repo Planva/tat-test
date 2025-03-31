@@ -15,12 +15,12 @@ function App() {
       <Layout>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/test" element={<Test />} />
-          <Route path="/results" element={<Results />} />
-          <Route path="/privacy" element={<Privacy />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/cards" element={<Cards />} />
-          <Route path="/research" element={<Research />} />
+          <Route path="/tat-test-online" element={<Test />} />
+          <Route path="/tat-test-results" element={<Results />} />
+          <Route path="/tat-test-privacy" element={<Privacy />} />
+          <Route path="/tat-test-about" element={<About />} />
+          <Route path="/tat-test-cards" element={<Cards />} />
+          <Route path="/tat-test-research" element={<Research />} />
         </Routes>
       </Layout>
     </Router>
