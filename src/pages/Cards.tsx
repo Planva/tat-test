@@ -26,7 +26,7 @@ export function Cards() {
     loadImages();
   }, []);
 
-  // Schema data for TAT Cards
+  // Schema data for TAT Cards with detailed descriptions
   const cardSchema = {
     "@context": "https://schema.org",
     "@type": "ImageGallery",
@@ -36,12 +36,12 @@ export function Cards() {
         "@type": "ImageObject",
         "position": index + 1,
         "contentUrl": image,
-        "name": `TAT Card ${index + 1}`,
-        "description": `Thematic Apperception Test (TAT) Card ${index + 1} - A standardized image used in psychological assessment`
+        "name": `TAT Test Card ${index + 1}`,
+        "description": `TAT Test Card ${index + 1} - A standardized psychological assessment image used in the Thematic Apperception Test to evaluate personality traits, emotional responses, and interpersonal dynamics through storytelling.`
       }))
     },
-    "name": "TAT Test Cards Collection",
-    "description": "Complete collection of Thematic Apperception Test (TAT) cards used in psychological assessment"
+    "name": "Thematic Apperception Test (TAT) Card Collection",
+    "description": "A comprehensive collection of standardized TAT test cards used by psychologists for personality assessment. Each card is designed to elicit unique narrative responses that reveal insights into personality traits, emotional patterns, and interpersonal relationships."
   };
 
   const handleImageClick = (image: string, index: number) => {
@@ -52,12 +52,12 @@ export function Cards() {
   return (
     <>
       <Helmet>
-        <title>TAT Test Cards and Pictures | Thematic Apperception Test</title>
-        <meta name="description" content="Explore the complete collection of Thematic Apperception Test (TAT) cards. Learn about their interpretation and use in psychological assessment." />
-        <meta name="keywords" content="TAT test cards, thematic apperception test images, psychological assessment cards, TAT pictures" />
+        <title>TAT Test Cards | Thematic Apperception Test Assessment Images</title>
+        <meta name="description" content="Explore the complete collection of TAT test cards used in psychological assessment. Each card is designed to reveal unique aspects of personality through storytelling." />
+        <meta name="keywords" content="TAT test cards, thematic apperception test, psychological assessment, projective test, personality evaluation, TAT images" />
         <link rel="canonical" href="https://www.tat-test.com/tat-test-cards" />
-        <meta property="og:title" content="TAT Test Cards and Pictures | Thematic Apperception Test" />
-        <meta property="og:description" content="Explore the complete collection of Thematic Apperception Test (TAT) cards. Learn about their interpretation and use in psychological assessment." />
+        <meta property="og:title" content="TAT Test Cards | Thematic Apperception Test Assessment Images" />
+        <meta property="og:description" content="Explore the complete collection of TAT test cards used in psychological assessment. Each card is designed to reveal unique aspects of personality through storytelling." />
         <script type="application/ld+json">
           {JSON.stringify(cardSchema)}
         </script>
@@ -67,10 +67,10 @@ export function Cards() {
         <div className="text-center mb-12">
           <Brain className="h-16 w-16 text-indigo-600 mx-auto" aria-hidden="true" />
           <h1 className="mt-4 text-4xl font-bold text-gray-900">
-            TAT Test Cards and Pictures
+            Thematic Apperception Test (TAT) Cards
           </h1>
           <p className="mt-4 text-xl text-gray-600">
-            Understanding the standard TAT cards and their interpretations
+            Understanding the standardized TAT cards and their role in psychological assessment
           </p>
         </div>
 
@@ -80,7 +80,7 @@ export function Cards() {
               <section>
                 <h2 className="text-2xl font-bold text-gray-900 mb-4">The Standard TAT Cards</h2>
                 <p className="text-gray-600">
-                  The complete set of Thematic Apperception Test (TAT) consists of 31 picture cards, though typically only 8-12 cards are used in a single session. Each card is carefully designed to elicit specific types of responses and reveal different aspects of personality.
+                  The complete set of Thematic Apperception Test (TAT) consists of 31 carefully selected cards, each designed to elicit specific psychological responses. These standardized images are used by trained professionals to assess personality traits, emotional patterns, and interpersonal dynamics through storytelling.
                 </p>
               </section>
 
@@ -88,7 +88,7 @@ export function Cards() {
                 <Link
                   to="/tat-test-online"
                   className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                  aria-label="Start the TAT Test now"
+                  aria-label="Begin your TAT assessment"
                 >
                   Take the TAT Test
                   <ArrowRight className="ml-2 h-5 w-5" aria-hidden="true" />
@@ -98,23 +98,23 @@ export function Cards() {
               <section aria-labelledby="gallery-heading">
                 <h2 id="gallery-heading" className="text-2xl font-bold text-gray-900 mb-4">TAT Card Gallery</h2>
                 {loading ? (
-                  <div className="flex justify-center py-12" role="status" aria-label="Loading TAT cards">
+                  <div className="flex justify-center py-12" role="status" aria-label="Loading TAT test cards">
                     <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
                   </div>
                 ) : (
-                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4" role="list" aria-label="TAT card gallery">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4" role="list" aria-label="TAT test card gallery">
                     {images.map((image, index) => (
                       <div 
                         key={index} 
                         className="relative group cursor-pointer" 
                         onClick={() => handleImageClick(image, index)}
                         role="listitem"
-                        aria-label={`TAT Card ${index + 1}`}
+                        aria-label={`TAT Test Card ${index + 1} - Click to view larger image`}
                       >
                         <div className="aspect-w-3 aspect-h-4 rounded-lg overflow-hidden bg-gray-100">
                           <img
                             src={image}
-                            alt={`TAT Card ${index + 1} - Thematic Apperception Test image used for psychological assessment`}
+                            alt={`TAT Test Card ${index + 1} - A standardized psychological assessment image designed to evaluate personality traits and emotional responses through storytelling`}
                             className="object-cover transform group-hover:scale-105 transition-transform duration-200"
                             loading="lazy"
                           />
@@ -225,11 +225,11 @@ export function Cards() {
                         className="sr-only"
                         id="modal-title"
                       >
-                        TAT Card {selectedIndex + 1}
+                        TAT Test Card {selectedIndex + 1}
                       </Dialog.Title>
                       <img
                         src={selectedImage}
-                        alt={`TAT Card ${selectedIndex + 1} - Full size view`}
+                        alt={`TAT Test Card ${selectedIndex + 1} - Full size view of standardized psychological assessment image`}
                         className="w-full h-auto max-h-[80vh] object-contain"
                       />
                     </>
