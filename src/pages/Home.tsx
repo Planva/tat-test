@@ -40,9 +40,7 @@ export function Home() {
         <link rel="canonical" href={`https://www.tat-test.com/${i18n.language === 'en' ? '' : i18n.language}`} />
         <meta property="og:title" content={`${t('home.title')} | TAT Test Online`} />
         <meta property="og:description" content={t('home.about.description')} />
-        <script type="application/ld+json">
-          {JSON.stringify(faqSchema)}
-        </script>
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       </Helmet>
 
       <div className="max-w-4xl mx-auto">

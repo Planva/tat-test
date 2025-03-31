@@ -52,9 +52,7 @@ export function Cards() {
         <link rel="canonical" href="https://www.tat-test.com/tat-test-cards" />
         <meta property="og:title" content="TAT Test Cards | Thematic Apperception Test Assessment Images" />
         <meta property="og:description" content="Explore the complete collection of TAT test cards used in psychological assessment. Each card is designed to reveal unique aspects of personality through storytelling." />
-        <script type="application/ld+json">
-          {JSON.stringify(cardSchema)}
-        </script>
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(cardSchema) }} />
       </Helmet>
 
       <div className="max-w-7xl mx-auto">
