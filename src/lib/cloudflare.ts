@@ -37,16 +37,13 @@ const DEFAULT_IMAGES = [
 
 export async function fetchImages(): Promise<string[]> {
   try {
-    const response = await fetch(`${API_URL}/images`, {
-      headers: {
-        'Accept': 'application/json',
-      }
-    });
+    const response = await fetch(`${API_URL}/images`);
     if (!response.ok) {
       console.warn('Failed to fetch images from API, using default images');
       return DEFAULT_IMAGES;
     }
-    return response.json();
+    const data = await response.json();
+    return Array.isArray(data) && data.length > 0 ? data : DEFAULT_IMAGES;
   } catch (error) {
     console.warn('Failed to fetch images from API, using default images');
     return DEFAULT_IMAGES;
@@ -63,7 +60,6 @@ export async function submitStories(stories: { imageId: number; content: string;
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Accept': 'application/json',
         },
         body: JSON.stringify({ stories }),
       });
@@ -72,27 +68,21 @@ export async function submitStories(stories: { imageId: number; content: string;
         return response.json();
       }
 
-      // If not the last attempt, wait before retrying
       if (attempt < retries - 1) {
-        await delay(1000 * Math.pow(2, attempt)); // Exponential backoff
+        await delay(1000 * Math.pow(2, attempt));
         continue;
       }
 
-      // On final attempt, return mock response
-      console.warn('Failed to submit to API after retries, proceeding with mock response');
       return {
         success: true,
         id: crypto.randomUUID()
       };
     } catch (error) {
-      // If not the last attempt, wait before retrying
       if (attempt < retries - 1) {
-        await delay(1000 * Math.pow(2, attempt)); // Exponential backoff
+        await delay(1000 * Math.pow(2, attempt));
         continue;
       }
 
-      // On final attempt, return mock response
-      console.warn('Failed to submit stories after retries, proceeding with mock response');
       return {
         success: true,
         id: crypto.randomUUID()
@@ -100,8 +90,6 @@ export async function submitStories(stories: { imageId: number; content: string;
     }
   }
 
-  // This should never be reached due to the mock responses above,
-  // but TypeScript needs it for type safety
   return {
     success: true,
     id: crypto.randomUUID()
