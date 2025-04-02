@@ -22,7 +22,7 @@ export function Layout({ children }: LayoutProps) {
     {
       name: 'Auto Payoff Calculator',
       url: 'https://auto-payoff-calculator.calculator-app.org'
-    }
+    },
     {
       name: 'Difficult Person Test',
       url: 'https://www.difficult-person-test.com'
