@@ -1,11 +1,2 @@
-name = "tat-test-api"
-main = "functions/[[route]].ts"
+name = "tat-test-website"
 compatibility_date = "2024-03-26"
-
-[[kv_namespaces]]
-binding = "TAT_IMAGES"
-id = "e66fda55f20f4360a651ac54dd95ecaf"
-
-[[kv_namespaces]]
-binding = "TAT_RESPONSES"
-id = "9233253c038741b09946eacf523af16d"

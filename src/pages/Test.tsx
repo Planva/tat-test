@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 interface Story {
   imageId: number;
   content: string;
-  demographics: {
+  demographics?: {
     gender: string;
     age: number;
   };
@@ -73,7 +73,12 @@ export function Test() {
       const result = await submitStories(stories);
       
       if (result.success) {
-        navigate('/results', { state: { stories } });
+        navigate('/tat-test-results', { 
+          state: { 
+            stories,
+            testId: result.id 
+          }
+        });
       } else {
         throw new Error('Failed to save response');
       }
