@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://tat-test.com/sitemap.xml
+Sitemap: https://www.tat-test.com/sitemap.xml
