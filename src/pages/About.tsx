@@ -66,7 +66,7 @@ export function About() {
               </ul>
             </section>
 
-            <div className="mt-8 flex justify-center">
+            <div className="flex justify-center my-8">
               <Link
                 to="/test"
                 className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
@@ -75,6 +75,7 @@ export function About() {
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Link>
             </div>
+            
           </div>
         </div>
       </div>
