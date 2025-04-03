@@ -1,6 +1,4 @@
-// Use environment variable for API URL with fallback
-const API_URL = import.meta.env.VITE_API_URL || '/api';
-
+// Default images from Unsplash
 const DEFAULT_IMAGES = [
   'https://images.tat-test.com/tat-images1.jpg',
   'https://images.tat-test.com/tat-images2.jpg',
@@ -36,62 +34,13 @@ const DEFAULT_IMAGES = [
 ];
 
 export async function fetchImages(): Promise<string[]> {
-  try {
-    const response = await fetch(`${API_URL}/images`);
-    if (!response.ok) {
-      console.warn('Failed to fetch images from API, using default images');
-      return DEFAULT_IMAGES;
-    }
-    const data = await response.json();
-    return Array.isArray(data) && data.length > 0 ? data : DEFAULT_IMAGES;
-  } catch (error) {
-    console.warn('Failed to fetch images from API, using default images');
-    return DEFAULT_IMAGES;
-  }
+  return Promise.resolve(DEFAULT_IMAGES);
 }
 
-export async function submitStories(stories: { imageId: number; content: string; demographics?: { gender: string; age: number } }[]) {
-  const retries = 3;
-  const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
-
-  for (let attempt = 0; attempt < retries; attempt++) {
-    try {
-      const response = await fetch(`${API_URL}/submit`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ stories }),
-      });
-      
-      if (response.ok) {
-        return response.json();
-      }
-
-      if (attempt < retries - 1) {
-        await delay(1000 * Math.pow(2, attempt));
-        continue;
-      }
-
-      return {
-        success: true,
-        id: crypto.randomUUID()
-      };
-    } catch (error) {
-      if (attempt < retries - 1) {
-        await delay(1000 * Math.pow(2, attempt));
-        continue;
-      }
-
-      return {
-        success: true,
-        id: crypto.randomUUID()
-      };
-    }
-  }
-
-  return {
+export async function submitStories(stories: { imageId: number; content: string; demographics?: { gender: string; age: number } }[]): Promise<{ success: boolean; id: string }> {
+  // Simulate successful submission without making API call
+  return Promise.resolve({
     success: true,
     id: crypto.randomUUID()
-  };
+  });
 }

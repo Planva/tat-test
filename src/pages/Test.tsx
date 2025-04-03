@@ -34,9 +34,8 @@ export function Test() {
         const randomIndex = Math.floor(Math.random() * imageUrls.length);
         setCurrentImage(imageUrls[randomIndex]);
       } catch (error) {
-        const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
-        console.error('Error loading images:', errorMessage);
-        setError(errorMessage);
+        console.error('Error loading images:', error);
+        setError('Failed to load images');
       }
     };
 
