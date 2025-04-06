@@ -27,6 +27,10 @@ export function Layout({ children }: LayoutProps) {
       name: 'Difficult Person Test',
       url: 'https://www.difficult-person-test.com'
     }
+    {
+      name: 'Thumbnail Tester',
+      url: 'https://www.thumbnail-tester.com'
+    }
   ];
 
   const mainLinks = [
