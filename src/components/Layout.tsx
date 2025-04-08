@@ -28,6 +28,10 @@ export function Layout({ children }: LayoutProps) {
       url: 'https://www.difficult-person-test.com'
     },
     {
+      name: 'Smart IQ Test',
+      url: 'https://www.smarttest.cc'
+    },
+    {
       name: 'Thumbnail Tester',
       url: 'https://www.thumbnail-tester.com'
     }
