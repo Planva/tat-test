@@ -34,6 +34,10 @@ export function Layout({ children }: LayoutProps) {
     {
       name: 'Thumbnail Tester',
       url: 'https://www.thumbnail-tester.com'
+    },
+    {
+      name: 'Future Value Calculator',
+      url: 'https://www.future-value-calculator.com/'
     }
   ];
 
