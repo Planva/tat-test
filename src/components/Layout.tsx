@@ -16,12 +16,12 @@ export function Layout({ children }: LayoutProps) {
   
   const partnerLinks = [
     {
-      name: 'Sending Prayers',
-      url: 'https://www.sending-prayers.com/'
+      name: 'Ai Manga Translate',
+      url: 'https://aimangatranslate.com'
     },
     {
-      name: 'Auto Payoff Calculator',
-      url: 'https://auto-payoff-calculator.calculator-app.org'
+      name: 'Sending Prayers',
+      url: 'https://www.sending-prayers.com'
     },
     {
       name: 'Difficult Person Test',
@@ -35,10 +35,6 @@ export function Layout({ children }: LayoutProps) {
       name: 'Thumbnail Tester',
       url: 'https://www.thumbnail-tester.com'
     },
-    {
-      name: 'Future Value Calculator',
-      url: 'https://www.future-value-calculator.com/'
-    }
   ];
 
   const mainLinks = [
