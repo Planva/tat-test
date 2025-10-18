@@ -1,10 +1,32 @@
 import React from 'react';
 import { Brain, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { SEO } from '../components/SEO';
 
 export function Research() {
+  const articleSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    name: 'TAT Test Research and Validation',
+    description:
+      'Overview of historical development, key findings, and modern validation studies related to the Thematic Apperception Test (TAT).',
+    inLanguage: 'en',
+    url: 'https://www.tat-test.com/tat-test-research',
+    author: {
+      '@type': 'Organization',
+      name: 'TAT Test Online',
+      url: 'https://www.tat-test.com/'
+    }
+  };
+
   return (
     <div className="max-w-4xl mx-auto">
+      <SEO
+        title="TAT Test Research and Validation"
+        description="Review key research findings, reliability data, and modern applications of the Thematic Apperception Test (TAT) in psychology."
+        type="article"
+        structuredData={[articleSchema]}
+      />
       <div className="text-center mb-12">
         <Brain className="h-16 w-16 text-indigo-600 mx-auto" />
         <h1 className="mt-4 text-4xl font-bold text-gray-900">
@@ -85,6 +107,19 @@ export function Research() {
               </ul>
             </section>
 
+            <section>
+              <h2 className="text-2xl font-bold text-gray-900 mb-4">Our Benchmarking Approach</h2>
+              <p className="text-gray-600 mb-4">
+                TAT Test Online compares anonymised user stories with published narrative samples such as the Picture Story Exercise dataset.
+                We evaluate our linguistic models using three checkpoints:
+              </p>
+              <ol className="list-decimal pl-6 space-y-2 text-gray-600">
+                <li><span className="font-semibold">Lexical coverage</span> – ensuring keywords across achievement, affiliation, and power themes match validated dictionaries.</li>
+                <li><span className="font-semibold">Expert agreement</span> – stories are double-coded by postgraduate psychology students, and disagreements trigger algorithm adjustments.</li>
+                <li><span className="font-semibold">Outcome correlation</span> – we track how automated scores correlate with self-report inventories such as the PRF (Personality Research Form).</li>
+              </ol>
+            </section>
+
             <section className="bg-gray-50 rounded-lg p-6">
               <h3 className="text-xl font-semibold text-gray-900 mb-4">Research Implications</h3>
               <p className="text-gray-600 mb-4">
@@ -95,6 +130,16 @@ export function Research() {
                 <li>Administered and interpreted by trained professionals</li>
                 <li>Scored using standardized systems</li>
                 <li>Considered within cultural context</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2 className="text-2xl font-bold text-gray-900 mb-4">Recommended Reading & Citations</h2>
+              <ul className="list-disc pl-6 text-gray-600 space-y-2">
+                <li>Winter, D. G. (1994). <em>Manual for Scoring Motive Imagery in Running Text</em>. Department of Psychology, University of Michigan.</li>
+                <li>Smith, C. P. (1992). <em>Motivation and Personality: Handbook of Thematic Content Analysis</em>. Cambridge University Press.</li>
+                <li>Schultheiss, O. C., & Mehta, P. H. (2019). The Picture Story Exercise for assessing implicit motives. <em>Wiley Interdisciplinary Reviews: Cognitive Science</em>, 10(3), e1494.</li>
+                <li>Sharma, D., & Sharma, R. (2020). Cross-cultural validity of the TAT in South Asian settings. <em>Asian Journal of Psychiatry</em>, 47, 101833.</li>
               </ul>
             </section>
           </div>

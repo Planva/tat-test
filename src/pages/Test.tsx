@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { fetchImages, submitStories } from '../lib/cloudflare';
 import { ArrowRight, Loader2 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { SEO } from '../components/SEO';
 
 interface Story {
   imageId: number;
@@ -41,6 +42,47 @@ export function Test() {
 
     loadImages();
   }, []);
+
+  const metaTitle = t('test.metaTitle', { defaultValue: t('test.title') || 'Take the TAT Test Online' });
+  const metaDescription = t('test.metaDescription', {
+    defaultValue:
+      'Complete the guided Thematic Apperception Test (TAT) online, submit your story, and receive instant personality insights.'
+  });
+
+  const howToSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'HowTo',
+    'name': 'How to complete the TAT practice story online',
+    'description': metaDescription,
+    'step': [
+      {
+        '@type': 'HowToStep',
+        'name': 'Observe the card',
+        'text': 'Spend 30–60 seconds looking at the card and noting the characters and setting.'
+      },
+      {
+        '@type': 'HowToStep',
+        'name': 'Describe the background',
+        'text': 'Explain what may have happened before the scene and what each character is feeling.'
+      },
+      {
+        '@type': 'HowToStep',
+        'name': 'Write the story',
+        'text': 'Compose a 250–400 word story including the current conflict and a possible outcome.'
+      },
+      {
+        '@type': 'HowToStep',
+        'name': 'Submit the story',
+        'text': 'Enter the story into the form, add optional demographics, and submit for instant feedback.'
+      }
+    ],
+    'tool': [
+      {
+        '@type': 'HowToTool',
+        'name': 'TAT Test Online story form'
+      }
+    ]
+  };
 
   const handleSubmit = async () => {
     if (!gender) {
@@ -115,10 +157,24 @@ export function Test() {
 
   return (
     <div className="max-w-4xl mx-auto">
+      <SEO title={metaTitle} description={metaDescription} type="article" structuredData={[howToSchema]} />
       <div className="mb-8">
         <h2 className="text-2xl font-bold text-gray-900">
           {t('test.title')}
         </h2>
+        <p className="mt-2 text-gray-600">
+          Set aside at least 15 quiet minutes. You will view one randomly selected card from the original TAT set.
+          Save your progress in a text editor if you wish to refine your story before submitting.
+        </p>
+        <div className="mt-4 bg-indigo-50 border border-indigo-100 rounded-lg p-4 text-sm text-indigo-900">
+          <h3 className="font-semibold mb-2">Before You Begin</h3>
+          <ol className="list-decimal pl-5 space-y-1">
+            <li>Observe the card for 30–60 seconds and note your immediate impressions.</li>
+            <li>Describe the protagonist, the supporting characters, and the setting in detail.</li>
+            <li>Explain what happened before the scene, the current conflict, and a realistic conclusion.</li>
+            <li>Write in a single sitting to keep the narrative coherent. Aim for 250–400 words.</li>
+          </ol>
+        </div>
         
         {/* Demographics Section */}
         <div className="mt-6 bg-white rounded-lg shadow-md p-6">
@@ -202,6 +258,14 @@ export function Test() {
             </>
           )}
         </button>
+      </div>
+
+      <div className="mt-8 bg-gray-50 border border-gray-200 rounded-lg p-4 text-sm text-gray-600">
+        <p>
+          <strong>Important:</strong> Stories submitted here are anonymised instantly. The automated interpretation reflects
+          linguistic patterns, not clinical diagnosis. If your story brings up strong emotions or distressing memories, consider
+          speaking with a licensed counsellor or psychologist who can provide personalised support.
+        </p>
       </div>
     </div>
   );

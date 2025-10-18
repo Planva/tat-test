@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Globe } from 'lucide-react';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const languages = [
   { code: 'en', name: 'English', flag: '🇺🇸' },
@@ -13,6 +14,8 @@ const languages = [
 
 export function LanguageSwitcher() {
   const { i18n } = useTranslation();
+  const navigate = useNavigate();
+  const location = useLocation();
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
 
@@ -51,22 +54,54 @@ export function LanguageSwitcher() {
           aria-labelledby="language-menu"
         >
           <div className="py-1">
-            {languages.map((language) => (
-              <button
-                key={language.code}
-                onClick={() => {
-                  i18n.changeLanguage(language.code);
-                  setIsOpen(false);
-                }}
-                className={`w-full text-left px-4 py-2 text-sm ${
-                  i18n.language === language.code ? 'bg-gray-100 text-gray-900' : 'text-gray-700'
-                } hover:bg-gray-100 flex items-center space-x-2 transition-colors`}
-                role="menuitem"
-              >
-                <span>{language.flag}</span>
-                <span>{language.name}</span>
-              </button>
-            ))}
+            {languages.map((language) => {
+              const isActive = i18n.language === language.code;
+              return (
+                <button
+                  key={language.code}
+                  onClick={() => {
+                    if (language.code !== i18n.language) {
+                      const strippedPath = (() => {
+                        const { pathname } = location;
+                        for (const lang of languages) {
+                          if (lang.code === 'en') continue;
+                          if (pathname === `/${lang.code}`) {
+                            return '/';
+                          }
+                          if (pathname.startsWith(`/${lang.code}/`)) {
+                            return pathname.replace(`/${lang.code}`, '') || '/';
+                          }
+                        }
+                        return pathname || '/';
+                      })();
+
+                      const { search, hash } = location;
+                      let targetPath =
+                        language.code === 'en'
+                          ? strippedPath
+                          : strippedPath === '/'
+                            ? `/${language.code}`
+                            : `/${language.code}${strippedPath.startsWith('/') ? strippedPath : `/${strippedPath}`}`;
+
+                      if (!targetPath.startsWith('/')) {
+                        targetPath = `/${targetPath}`;
+                      }
+
+                      i18n.changeLanguage(language.code);
+                      navigate(`${targetPath}${search}${hash}`, { replace: true });
+                    }
+                    setIsOpen(false);
+                  }}
+                  className={`w-full text-left px-4 py-2 text-sm ${
+                    isActive ? 'bg-gray-100 text-gray-900' : 'text-gray-700'
+                  } hover:bg-gray-100 flex items-center space-x-2 transition-colors`}
+                  role="menuitem"
+                >
+                  <span>{language.flag}</span>
+                  <span>{language.name}</span>
+                </button>
+              );
+            })}
           </div>
         </div>
       )}

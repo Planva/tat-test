@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Upload } from 'lucide-react';
+import { SEO } from '../components/SEO';
 
 export function Upload() {
   const [uploadStatus, setUploadStatus] = useState<{ [key: string]: boolean }>({});
@@ -39,6 +40,24 @@ export function Upload() {
 
   return (
     <div className="max-w-4xl mx-auto">
+      <SEO
+        title="Upload TAT Test Images"
+        description="Validate and upload standardized TAT card images to keep your assessment library accurate and ready for testing."
+        type="article"
+        noIndex
+        structuredData={[{
+          '@context': 'https://schema.org',
+          '@type': 'HowTo',
+          name: 'How to prepare TAT card images for upload',
+          description: 'Checklist for ensuring TAT card images meet size and format requirements before placing them in the project.',
+          step: [
+            { '@type': 'HowToStep', name: 'Check format', text: 'Select a JPG file for each TAT card and ensure it is smaller than 200KB.' },
+            { '@type': 'HowToStep', name: 'Verify dimensions', text: 'Confirm that every image is exactly 800 pixels wide before continuing.' },
+            { '@type': 'HowToStep', name: 'Rename files', text: 'Label the images sequentially as tat-1.jpg through tat-10.jpg.' },
+            { '@type': 'HowToStep', name: 'Place in project', text: 'Move the validated files into the public/images directory used by the site.' }
+          ]
+        }]}
+      />
       <div className="bg-white shadow-lg rounded-lg p-6">
         <div className="flex items-center mb-6">
           <Upload className="h-6 w-6 text-indigo-600 mr-2" />

@@ -1,8 +1,9 @@
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { Download, Loader2, Brain, Info } from 'lucide-react';
+import { Download, Info } from 'lucide-react';
 import { jsPDF } from 'jspdf';
 import { analyzeText, getAnalysisInterpretation } from '../lib/analysis';
+import { SEO } from '../components/SEO';
 
 interface Story {
   imageId: number;
@@ -25,6 +26,18 @@ export function Results() {
 
   const analysis = analyzeText(stories[0].content);
   const interpretation = getAnalysisInterpretation(analysis);
+  const reportSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Report',
+    'name': 'TAT Test Story Analysis',
+    'description': 'Automated linguistic summary for a single TAT practice story.',
+    'inLanguage': 'en',
+    'creator': {
+      '@type': 'Organization',
+      'name': 'TAT Test Online',
+      'url': 'https://www.tat-test.com/'
+    }
+  };
 
   const downloadPDF = () => {
     const doc = new jsPDF();
@@ -85,6 +98,13 @@ export function Results() {
 
   return (
     <div className="max-w-4xl mx-auto">
+      <SEO
+        title="Your TAT Test Analysis"
+        description="Review the detailed analysis of your Thematic Apperception Test story, including motivational themes and emotional tone insights."
+        type="article"
+        noIndex
+        structuredData={[reportSchema]}
+      />
       <div className="flex justify-between items-center mb-8">
         <h1 className="text-3xl font-bold text-gray-900">Your TAT Test Analysis</h1>
         <button

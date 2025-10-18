@@ -1,18 +1,15 @@
 import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Brain } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import { LanguageSwitcher } from './LanguageSwitcher';
 
 interface LayoutProps {
   children: React.ReactNode;
 }
 
 export function Layout({ children }: LayoutProps) {
-  const { t, i18n } = useTranslation();
-  const location = useLocation();
-  const currentLang = i18n.language;
-  const langPrefix = currentLang === 'en' ? '' : `/${currentLang}`;
+  const { t } = useTranslation();
+  const langPrefix = '';
   
   const partnerLinks = [
     {
@@ -20,16 +17,8 @@ export function Layout({ children }: LayoutProps) {
       url: 'https://aimangatranslate.com'
     },
     {
-      name: 'Sending Prayers',
-      url: 'https://www.sending-prayers.com'
-    },
-    {
-      name: 'Difficult Person Test',
-      url: 'https://www.difficult-person-test.com'
-    },
-    {
-      name: 'Smart IQ Test',
-      url: 'https://www.smarttest.cc'
+      name: 'Online Clipboard',
+      url: 'https://onlinclipboard.com'
     },
     {
       name: 'Thumbnail Tester',
@@ -41,7 +30,8 @@ export function Layout({ children }: LayoutProps) {
     { path: '/tat-test-about', label: 'About TAT' },
     { path: '/tat-test-cards', label: 'TAT Cards' },
     { path: '/tat-test-research', label: 'Research' },
-    { path: '/tat-test-online', label: 'Take Test' }
+    { path: '/tat-test-online', label: 'Take Test' },
+    { path: '/contact', label: 'Contact' }
   ];
 
   return (
@@ -66,9 +56,7 @@ export function Layout({ children }: LayoutProps) {
                 ))}
               </div>
             </div>
-            <div className="flex items-center space-x-6">
-              <LanguageSwitcher />
-            </div>
+            <div className="flex items-center space-x-6" />
           </div>
         </div>
       </nav>
@@ -115,7 +103,22 @@ export function Layout({ children }: LayoutProps) {
                   </Link>
                 </li>
                 <li>
-                  <a href="https://www.apa.org" target="_blank" rel="noopener noreferrer" className="text-base text-gray-500 hover:text-gray-900">
+                  <Link to={`${langPrefix}/terms`} className="text-base text-gray-500 hover:text-gray-900">
+                    Terms & Disclaimer
+                  </Link>
+                </li>
+                <li>
+                  <Link to={`${langPrefix}/editorial-standards`} className="text-base text-gray-500 hover:text-gray-900">
+                    Editorial Standards
+                  </Link>
+                </li>
+                <li>
+                  <a
+                    href="https://www.apa.org"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-base text-gray-500 hover:text-gray-900"
+                  >
                     APA Guidelines
                   </a>
                 </li>

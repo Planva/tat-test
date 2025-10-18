@@ -3,7 +3,7 @@ import { Brain, ArrowRight, X } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Dialog } from '@headlessui/react';
 import { fetchImages } from '../lib/cloudflare';
-import { Helmet } from 'react-helmet-async';
+import { SEO } from '../components/SEO';
 
 export function Cards() {
   const [images, setImages] = useState<string[]>([]);
@@ -45,15 +45,11 @@ export function Cards() {
 
   return (
     <>
-      <Helmet>
-        <title>TAT Test Cards | Thematic Apperception Test Assessment Images</title>
-        <meta name="description" content="Explore the complete collection of TAT test cards used in psychological assessment. Each card is designed to reveal unique aspects of personality through storytelling." />
-        <meta name="keywords" content="TAT test cards, thematic apperception test, psychological assessment, projective test, personality evaluation, TAT images" />
-        <link rel="canonical" href="https://www.tat-test.com/tat-test-cards" />
-        <meta property="og:title" content="TAT Test Cards | Thematic Apperception Test Assessment Images" />
-        <meta property="og:description" content="Explore the complete collection of TAT test cards used in psychological assessment. Each card is designed to reveal unique aspects of personality through storytelling." />
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(cardSchema) }} />
-      </Helmet>
+      <SEO
+        title="TAT Test Cards"
+        description="Explore every Thematic Apperception Test (TAT) card, understand how psychologists use the images, and preview each illustration before your assessment."
+        structuredData={[cardSchema]}
+      />
 
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-12">

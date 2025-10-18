@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 410 410">
+  <defs>
+    <linearGradient id="viteBg" x1="0%" x2="100%" y1="5%" y2="95%">
+      <stop offset="0%" stop-color="#4f46e5"/>
+      <stop offset="100%" stop-color="#7c3aed"/>
+    </linearGradient>
+    <linearGradient id="viteGlow" x1="35%" x2="65%" y1="0%" y2="100%">
+      <stop offset="0%" stop-color="#c4b5fd" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="#ede9fe" stop-opacity="0.55"/>
+    </linearGradient>
+  </defs>
+  <rect width="410" height="410" rx="110" ry="110" fill="url(#viteBg)"/>
+  <path
+    d="M205 60c56 0 106 35 126 87l-64 42c-11-31-38-50-68-50s-57 19-68 50l-64-42c20-52 70-87 126-87Z"
+    fill="url(#viteGlow)"
+  />
+  <path
+    d="M205 128c-38 0-69 31-69 69v16h56v-14c0-7.5 5.5-13 13-13s13 5.5 13 13v122h56V197c0-38-31-69-69-69Z"
+    fill="#fff"
+  />
+  <path
+    d="M143 216v42c0 38 31 69 69 69 32.4 0 59.6-22.4 67.1-52.7"
+    fill="none"
+    stroke="#ede9fe"
+    stroke-width="30"
+    stroke-linecap="round"
+  />
+  <circle cx="205" cy="205" r="150" fill="none" stroke="rgba(255,255,255,0.18)" stroke-width="22"/>
+</svg>

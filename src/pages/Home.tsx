@@ -2,11 +2,11 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Brain, ArrowRight } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import { Helmet } from 'react-helmet-async';
+import { SEO } from '../components/SEO';
 
 export function Home() {
   const navigate = useNavigate();
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
 
   // FAQ Schema Data
   const faqSchema = {
@@ -32,16 +32,30 @@ export function Home() {
     ]
   };
 
+  const seoTitle = 'TAT Test Cards | Thematic Apperception Assessment';
+  const seoDescription = 'Explore TAT cards, complete the guided storytelling practice, and get instant language insights on achievement, affiliation, power, and emotional tone.';
+
+  const webPageSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    name: seoTitle,
+    description: seoDescription,
+    url: 'https://www.tat-test.com/',
+    inLanguage: 'en',
+    isPartOf: {
+      '@type': 'WebSite',
+      name: 'TAT Test Online',
+      url: 'https://www.tat-test.com/'
+    }
+  };
+
   return (
     <>
-      <Helmet>
-        <title>{t('home.title')} | TAT Test Online</title>
-        <meta name="description" content={t('home.about.description')} />
-        <link rel="canonical" href={`https://www.tat-test.com/${i18n.language === 'en' ? '' : i18n.language}`} />
-        <meta property="og:title" content={`${t('home.title')} | TAT Test Online`} />
-        <meta property="og:description" content={t('home.about.description')} />
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
-      </Helmet>
+      <SEO
+        title={seoTitle}
+        description={seoDescription}
+        structuredData={[webPageSchema, faqSchema]}
+      />
 
       <div className="max-w-4xl mx-auto">
         {/* Header Section */}
@@ -86,6 +100,70 @@ export function Home() {
                 <span>{t('home.howItWorks.steps.4')}</span>
               </li>
             </ol>
+          </section>
+
+          {/* Value Proposition */}
+          <section className="bg-white rounded-lg shadow-sm p-8">
+            <h2 className="text-2xl font-bold text-gray-900 mb-4">What You Receive</h2>
+            <p className="text-gray-600 mb-4">
+              Each story you submit is analysed with a transparent scoring model derived from McClelland’s motivational theory.
+              Your downloadable PDF includes:
+            </p>
+            <ul className="list-disc pl-6 space-y-2 text-gray-600">
+              <li>A summary of achievement, affiliation, and power themes present in your writing.</li>
+              <li>Emotional tone indicators that distinguish positive and negative language, plus suggestions for reflection.</li>
+              <li>Guidance on how to bring your results to a counsellor, coach, or therapist for a deeper discussion.</li>
+            </ul>
+          </section>
+
+          {/* Responsible Use */}
+          <section className="bg-white rounded-lg shadow-sm p-8">
+            <h2 className="text-2xl font-bold text-gray-900 mb-4">Responsible & Ethical Use</h2>
+            <p className="text-gray-600 mb-4">
+              The Thematic Apperception Test is traditionally administered by trained professionals. TAT Test Online offers an
+              educational simulation only. We encourage you to:
+            </p>
+            <ol className="list-decimal pl-6 space-y-2 text-gray-600">
+              <li>Use the platform to explore personal narratives, not to self-diagnose mental health conditions.</li>
+              <li>Share your results with a qualified practitioner if you need personalised advice or therapeutic support.</li>
+              <li>Read our <a href="/editorial-standards" className="text-indigo-600 hover:text-indigo-700">Editorial Standards</a> to understand how we vet psychological information.</li>
+            </ol>
+            <p className="text-sm text-gray-500 mt-4">
+              References: Henry A. Murray (1943), “Thematic Apperception Test”; McClelland, D. C. (1985), “Human Motivation”.
+            </p>
+          </section>
+
+          {/* Who Should Try the TAT */}
+          <section className="bg-white rounded-lg shadow-sm p-8">
+            <h2 className="text-2xl font-bold text-gray-900 mb-4">Who Is This For?</h2>
+            <div className="grid md:grid-cols-2 gap-6 text-gray-600">
+              <div>
+                <h3 className="text-lg font-semibold text-gray-900 mb-2">Students & Researchers</h3>
+                <p>
+                  Psychology students can practise interpreting narrative data without needing the full physical card set.
+                  Each card preview is accompanied by context and interpretation tips.
+                </p>
+              </div>
+              <div>
+                <h3 className="text-lg font-semibold text-gray-900 mb-2">Coaches & Facilitators</h3>
+                <p>
+                  Life coaches and facilitators can use the prompts to spark reflective conversations while respecting the
+                  boundaries of non-clinical work.
+                </p>
+              </div>
+              <div>
+                <h3 className="text-lg font-semibold text-gray-900 mb-2">Personal Growth Seekers</h3>
+                <p>
+                  Individuals can explore how their stories reveal recurring motivations, then track progress with repeated assessments.
+                </p>
+              </div>
+              <div>
+                <h3 className="text-lg font-semibold text-gray-900 mb-2">Educators</h3>
+                <p>
+                  Teachers introducing projective techniques in class can demonstrate the workflow safely and ethically using anonymised data.
+                </p>
+              </div>
+            </div>
           </section>
 
           {/* FAQ Section */}
