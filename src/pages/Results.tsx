@@ -1,6 +1,6 @@
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { Download, Info } from 'lucide-react';
+import { Download, Info, Target, Share2, Scale } from 'lucide-react';
 import { jsPDF } from 'jspdf';
 import { analyzeText, getAnalysisInterpretation } from '../lib/analysis';
 import { SEO } from '../components/SEO';
@@ -88,10 +88,19 @@ export function Results() {
       yPos += lines.length * 7 + 10;
     };
 
+    addSection('Summary', `${interpretation.summary.headline} Tone: ${interpretation.summary.tone}. Word count: ${interpretation.summary.length}.`);
     addSection('Achievement', interpretation.achievement.interpretation);
     addSection('Affiliation', interpretation.affiliation.interpretation);
     addSection('Power Dynamics', interpretation.power.interpretation);
+    addSection('Needs vs Presses', interpretation.dynamics.needsPress.interpretation);
+    addSection('Temporal Focus', interpretation.dynamics.temporal.interpretation);
+    addSection('Conflict Intensity', interpretation.dynamics.conflict.interpretation);
+    addSection('Resolution Cues', interpretation.dynamics.resolution.interpretation);
+    addSection('Agency', interpretation.dynamics.agency.interpretation);
     addSection('Emotional Style', interpretation.personality.emotionalStyle.interpretation);
+    if (interpretation.recommendations.length) {
+      addSection('Suggestions', interpretation.recommendations.join(' '));
+    }
 
     doc.save('tat-test-results.pdf');
   };
@@ -124,98 +133,161 @@ export function Results() {
             <div>
               <h3 className="text-lg font-medium text-blue-900 mb-2">Understanding the Scores</h3>
               <div className="prose prose-sm text-blue-800">
-                <p className="mb-2">The percentages shown in this analysis represent the frequency of specific types of words in your story:</p>
+                <p className="mb-2">
+                  TAT scoring looks at motive imagery (needs), environmental pressures (presses), and narrative movement from
+                  conflict to resolution. This automated reading uses published dictionaries from Murray, McClelland, and Winter to
+                  approximate those dimensions.
+                </p>
                 <ul className="list-disc pl-5 space-y-1">
-                  <li><strong>Achievement Score:</strong> Typical range is 4.5-8.5% (average: 5.7%). Higher scores indicate stronger focus on success and accomplishment.</li>
-                  <li><strong>Social Connection Score:</strong> Average is 1.2%. About 30% of people score 0%. Higher scores show greater emphasis on relationships.</li>
-                  <li><strong>Power Dynamics Score:</strong> Typical range is 0.8-2.7% (average: 1.7%). Higher scores suggest attention to control and status.</li>
-                  <li><strong>Emotional Tone:</strong> Shows the balance between positive (+) and negative (-) emotional words. Higher positive percentage suggests optimistic outlook.</li>
-                  <li><strong>Social Awareness Score:</strong> Reflects the frequency of words referring to other people and social interactions.</li>
+                  <li><strong>Motive Scores:</strong> Achievement, affiliation, and power frequencies across your narrative.</li>
+                  <li><strong>Needs vs Presses:</strong> Whether the protagonist is guided by inner wishes or external demands.</li>
+                  <li><strong>Temporal Focus:</strong> Coverage of past context, present tension, and future resolution as required in TAT administration.</li>
+                  <li><strong>Conflict & Resolution:</strong> Markers that a clear problem and ending were articulated.</li>
+                  <li><strong>Agency & Affect:</strong> Action verbs and emotional tone illustrating how the protagonist copes.</li>
                 </ul>
               </div>
             </div>
           </div>
         </div>
 
+        {/* Snapshot */}
+        <div className="grid gap-4 md:grid-cols-3">
+          <div className="bg-white shadow rounded-lg p-4">
+            <p className="text-sm text-gray-500">Word Count</p>
+            <p className="text-2xl font-semibold text-gray-900">{interpretation.summary.length}</p>
+            <p className="text-xs text-gray-500">Recommended range: 250–400 words</p>
+          </div>
+          <div className="bg-white shadow rounded-lg p-4">
+            <p className="text-sm text-gray-500">Tone Snapshot</p>
+            <p className="text-xl font-semibold text-gray-900">{interpretation.summary.tone}</p>
+            <p className="text-xs text-gray-500">+{interpretation.personality.emotionalStyle.positive}% / -{interpretation.personality.emotionalStyle.negative}%</p>
+          </div>
+          <div className="bg-white shadow rounded-lg p-4">
+            <p className="text-sm text-gray-500">Narrative Depth</p>
+            <p className="text-sm text-gray-900 font-semibold">{interpretation.summary.headline}</p>
+          </div>
+        </div>
+
         {/* Story Section */}
         <div className="bg-white shadow rounded-lg p-6">
-          <h2 className="text-xl font-semibold text-gray-900 mb-4">
-            Your Story
-          </h2>
+          <h2 className="text-xl font-semibold text-gray-900 mb-4">Your Story</h2>
           <p className="text-gray-700 whitespace-pre-wrap">{stories[0].content}</p>
         </div>
 
         {/* Analysis Section */}
-        <div className="bg-white shadow rounded-lg p-6">
-          <h2 className="text-xl font-semibold text-gray-900 mb-6">
-            Story Analysis
-          </h2>
-          
-          <div className="grid gap-6">
-            {/* Motivational Themes */}
-            <div>
-              <h3 className="text-lg font-medium text-gray-900 mb-4">Motivational Themes</h3>
-              <div className="grid gap-4">
-                <div>
-                  <div className="flex justify-between items-center mb-2">
-                    <span className="text-sm font-medium text-gray-700">Achievement Focus</span>
-                    <span className="text-sm text-gray-500">{interpretation.achievement.score}%</span>
-                  </div>
-                  <p className="text-sm text-gray-600">{interpretation.achievement.interpretation}</p>
-                </div>
-                
-                <div>
-                  <div className="flex justify-between items-center mb-2">
-                    <span className="text-sm font-medium text-gray-700">Social Connection</span>
-                    <span className="text-sm text-gray-500">{interpretation.affiliation.score}%</span>
-                  </div>
-                  <p className="text-sm text-gray-600">{interpretation.affiliation.interpretation}</p>
-                </div>
-
-                <div>
-                  <div className="flex justify-between items-center mb-2">
-                    <span className="text-sm font-medium text-gray-700">Power Dynamics</span>
-                    <span className="text-sm text-gray-500">{interpretation.power.score}%</span>
-                  </div>
-                  <p className="text-sm text-gray-600">{interpretation.power.interpretation}</p>
-                </div>
-              </div>
-            </div>
-
-            {/* Language Style */}
-            <div>
-              <h3 className="text-lg font-medium text-gray-900 mb-4">Language Analysis</h3>
-              <div className="grid gap-4">
-                <div>
-                  <div className="flex justify-between items-center mb-2">
-                    <span className="text-sm font-medium text-gray-700">Emotional Tone</span>
-                    <span className="text-sm text-gray-500">
-                      +{interpretation.personality.emotionalStyle.positive}% / 
-                      -{interpretation.personality.emotionalStyle.negative}%
+        <div className="bg-white shadow rounded-lg p-6 space-y-8">
+          <section>
+            <h2 className="text-xl font-semibold text-gray-900 mb-4">Motive Profile</h2>
+            <div className="grid gap-6 md:grid-cols-3">
+              {[{
+                title: 'Achievement',
+                data: interpretation.achievement,
+                Icon: Target
+              }, {
+                title: 'Affiliation',
+                data: interpretation.affiliation,
+                Icon: Share2
+              }, {
+                title: 'Power',
+                data: interpretation.power,
+                Icon: Scale
+              }].map((card) => (
+                <div key={card.title} className="border border-gray-100 rounded-lg p-4">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="flex items-center gap-2 text-sm font-semibold text-gray-700">
+                      <card.Icon className="h-4 w-4 text-indigo-600" />
+                      {card.title}
                     </span>
+                    <span className="text-xs uppercase tracking-wide text-indigo-600">{card.data.label}</span>
                   </div>
-                  <p className="text-sm text-gray-600">{interpretation.personality.emotionalStyle.interpretation}</p>
+                  <p className="text-3xl font-bold text-gray-900">{card.data.score}%</p>
+                  <p className="text-sm text-gray-600 mt-2">{card.data.interpretation}</p>
                 </div>
+              ))}
+            </div>
+          </section>
 
-                <div>
-                  <div className="flex justify-between items-center mb-2">
-                    <span className="text-sm font-medium text-gray-700">Social Awareness</span>
-                    <span className="text-sm text-gray-500">{interpretation.personality.socialAwareness.score}%</span>
-                  </div>
-                  <p className="text-sm text-gray-600">{interpretation.personality.socialAwareness.interpretation}</p>
+          <section>
+            <h2 className="text-xl font-semibold text-gray-900 mb-4">Narrative Dynamics</h2>
+            <div className="space-y-6">
+              <div className="grid gap-4 md:grid-cols-2">
+                <div className="border border-gray-100 rounded-lg p-4">
+                  <p className="text-sm font-semibold text-gray-700">Needs vs Presses</p>
+                  <p className="text-2xl font-bold text-gray-900">{interpretation.dynamics.needsPress.balance}</p>
+                  <p className="text-sm text-gray-600 mt-1">Needs {interpretation.dynamics.needsPress.needs}% · Presses {interpretation.dynamics.needsPress.presses}%</p>
+                  <p className="text-sm text-gray-600 mt-2">{interpretation.dynamics.needsPress.interpretation}</p>
+                </div>
+                <div className="border border-gray-100 rounded-lg p-4">
+                  <p className="text-sm font-semibold text-gray-700">Temporal Focus</p>
+                  <p className="text-2xl font-bold text-gray-900 capitalize">{interpretation.dynamics.temporal.dominant}</p>
+                  <p className="text-sm text-gray-600 mt-1">
+                    Past {interpretation.dynamics.temporal.values.past}% · Present {interpretation.dynamics.temporal.values.present}% · Future {interpretation.dynamics.temporal.values.future}%
+                  </p>
+                  <p className="text-sm text-gray-600 mt-2">{interpretation.dynamics.temporal.interpretation}</p>
+                </div>
+              </div>
+              <div className="grid gap-4 md:grid-cols-3">
+                <div className="border border-gray-100 rounded-lg p-4">
+                  <p className="text-sm font-semibold text-gray-700">Conflict Intensity</p>
+                  <p className="text-2xl font-bold text-gray-900">{interpretation.dynamics.conflict.score}%</p>
+                  <p className="text-sm text-gray-600 mt-2">{interpretation.dynamics.conflict.interpretation}</p>
+                </div>
+                <div className="border border-gray-100 rounded-lg p-4">
+                  <p className="text-sm font-semibold text-gray-700">Resolution Signals</p>
+                  <p className="text-2xl font-bold text-gray-900">{interpretation.dynamics.resolution.score}%</p>
+                  <p className="text-sm text-gray-600 mt-2">{interpretation.dynamics.resolution.interpretation}</p>
+                </div>
+                <div className="border border-gray-100 rounded-lg p-4">
+                  <p className="text-sm font-semibold text-gray-700">Protagonist Agency</p>
+                  <p className="text-2xl font-bold text-gray-900">{interpretation.dynamics.agency.score}%</p>
+                  <p className="text-sm text-gray-600 mt-2">{interpretation.dynamics.agency.interpretation}</p>
                 </div>
               </div>
             </div>
-          </div>
+          </section>
+
+          <section>
+            <h2 className="text-xl font-semibold text-gray-900 mb-4">Tone & Social Framing</h2>
+            <div className="grid gap-4 md:grid-cols-3">
+              <div className="border border-gray-100 rounded-lg p-4">
+                <p className="text-sm font-semibold text-gray-700">Emotional Tone</p>
+                <p className="text-sm text-gray-600">+{interpretation.personality.emotionalStyle.positive}% / -{interpretation.personality.emotionalStyle.negative}%</p>
+                <p className="text-sm text-gray-600 mt-2">{interpretation.personality.emotionalStyle.interpretation}</p>
+              </div>
+              <div className="border border-gray-100 rounded-lg p-4">
+                <p className="text-sm font-semibold text-gray-700">Social Awareness</p>
+                <p className="text-2xl font-bold text-gray-900">{interpretation.personality.socialAwareness.score}%</p>
+                <p className="text-sm text-gray-600 mt-2">{interpretation.personality.socialAwareness.interpretation}</p>
+              </div>
+              <div className="border border-gray-100 rounded-lg p-4">
+                <p className="text-sm font-semibold text-gray-700">Self-Reference</p>
+                <p className="text-2xl font-bold text-gray-900">{interpretation.personality.selfReferences.score}%</p>
+                <p className="text-sm text-gray-600 mt-2">{interpretation.personality.selfReferences.interpretation}</p>
+              </div>
+            </div>
+          </section>
         </div>
+
+        {interpretation.recommendations.length > 0 && (
+          <div className="bg-white shadow rounded-lg p-6">
+            <h2 className="text-xl font-semibold text-gray-900 mb-4">Suggestions for Your Next Story</h2>
+            <ul className="list-disc pl-5 space-y-2 text-gray-700">
+              {interpretation.recommendations.map((tip, index) => (
+                <li key={index}>{tip}</li>
+              ))}
+            </ul>
+          </div>
+        )}
 
         {/* Disclaimer */}
         <div className="bg-gray-50 rounded-lg p-6 text-sm text-gray-600">
           <p className="mb-4">
-            <strong>Note:</strong> This analysis is based on linguistic patterns in your story and should be considered as general insights rather than definitive conclusions. Many factors can influence how someone responds to this test, including current mood, environment, and personal circumstances.
+            <strong>Note:</strong> This analysis mirrors common TAT scoring rubrics but does not replace professional interpretation. Mood,
+            culture, and real-life stressors can all shape what appears in your narrative.
           </p>
           <p>
-            The TAT (Thematic Apperception Test) is designed to explore how individuals perceive and interpret ambiguous situations, potentially revealing aspects of their personality through storytelling.
+            Bring these observations to a counsellor or instructor if you want to explore the motives and presses that emerged. They
+            can integrate this practice run with broader assessment data.
           </p>
         </div>
       </div>

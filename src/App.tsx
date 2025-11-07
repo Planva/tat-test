@@ -11,6 +11,8 @@ import { Layout } from './components/Layout';
 import Terms from './pages/Terms';
 import Contact from './pages/Contact';
 import Editorial from './pages/Editorial';
+import Methodology from './pages/Methodology';
+import CaseLibrary from './pages/CaseLibrary';
 function App() {
   // English-only experience
   return (
@@ -25,6 +27,8 @@ function App() {
           <Route path="/tat-test-about" element={<About />} />
           <Route path="/tat-test-cards" element={<Cards />} />
           <Route path="/tat-test-research" element={<Research />} />
+          <Route path="/tat-test-methodology" element={<Methodology />} />
+          <Route path="/tat-test-story-library" element={<CaseLibrary />} />
           <Route path="/terms" element={<Terms />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/editorial-standards" element={<Editorial />} />

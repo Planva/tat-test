@@ -30,6 +30,8 @@ export function Layout({ children }: LayoutProps) {
     { path: '/tat-test-about', label: 'About TAT' },
     { path: '/tat-test-cards', label: 'TAT Cards' },
     { path: '/tat-test-research', label: 'Research' },
+    { path: '/tat-test-methodology', label: 'Methodology' },
+    { path: '/tat-test-story-library', label: 'Story Library' },
     { path: '/tat-test-online', label: 'Take Test' },
     { path: '/contact', label: 'Contact' }
   ];
