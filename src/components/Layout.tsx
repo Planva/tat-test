@@ -17,6 +17,10 @@ export function Layout({ children }: LayoutProps) {
       url: 'https://aimangatranslate.com'
     },
     {
+      name: 'PDF Translation',
+      url: 'https://pdf-translation.com'
+    },
+    {
       name: 'Online Clipboard',
       url: 'https://onlinclipboard.com'
     },
