@@ -25,6 +25,10 @@ export function Layout({ children }: LayoutProps) {
       url: 'https://onlinclipboard.com'
     },
     {
+      name: 'Digital Planner',
+      url: 'https://digiplanpro.com'
+    },
+    {
       name: 'Thumbnail Tester',
       url: 'https://www.thumbnail-tester.com'
     },
